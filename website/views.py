@@ -103,8 +103,6 @@ class ProductDetail(View):
 class ProductCategory(View):
     def get(self,request,category):
         product = models.Product.objects.filter(category=category)
-        if product.first() is None:
-            return render(request,'website/error_404.html')
         return render(request,'website/category_view.html',{'products':product})
     
 
