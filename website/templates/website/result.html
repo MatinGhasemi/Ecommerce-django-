@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Result{% endblock title %}
+{% block content %}
+{% for product in object %}
+<div class="product_category_section">
+    <div class="row">
+        <img src="{{ product.image.url }}" alt="product" class="product_category_img">
+        <div class="product_category_text p_c_1">Name : {{ product.name }}</div>
+        <div class="product_category_text p_c_2">Review : {{ product.review }}</div>
+    </div>
+    {% if product.product_exists %}
+        <a href="" class='btn btn-outline-success product_category_btn update-cart' data-product='{{ product.id }}' data-action='add'>Add To Cart</a><span class='text-info'><b>{{ product.price }}$</b></span>
+        <img src="{% static 'website/images/True.png' %}" alt="Exist" class='category_true_false_img'>
+    {% else %}
+        <a href="{% url 'contact' %}" class="btn btn-outline-danger product_category_btn">Contact Us</a>
+        <img src="{% static 'website/images/False.png' %}" alt="not Exist" class='category_true_false_img'><span class='text-danger'>This Product Dose'n Exist Anymore Contact Us</span>
+    {% endif %}
+</div>
+{% endfor %}
+
+{% endblock content %}

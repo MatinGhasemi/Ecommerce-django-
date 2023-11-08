@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Home Page{% endblock title %}
+{% block content %}
+{% for message in messages %}
+<div class='alert alert-success my-3 mx-4'>{{ message }}</div>
+{% endfor %}
+<section class="section_top">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <a href="/product/category/Digital"><img class="d-block slider_img" src="{% static 'website/images/digital_c.jpg' %}" alt="First slide"></a>
+      </div>
+      <div class="carousel-item">
+        <a href="/product/category/Health"><img class="d-block slider_img" src="{% static 'website/images/Health_c.jpg' %}" alt="Second slide"></a>
+      </div>
+      <div class="carousel-item">
+        <a href="/product/category/Makeup"><img class="d-block slider_img" src="{% static 'website/images/makeup_c.jpg' %}" alt="Third slide"></a>
+      </div>
+      <div class="carousel-item">
+        <a href="/product/category/Perfume"><img class="d-block slider_img" src="{% static 'website/images/perfume_c.jpg' %}" alt="Fourth slide"></a>
+      </div>
+      <div class="carousel-item">
+        <a href="/product/category/Stationery"><img class="d-block slider_img" src="{% static 'website/images/stationary_c.jpg' %}" alt="Fifth slide"></a>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</section>
+<section class="section_brands">
+  <div class="row" style='padding:20px 200px'>
+    <div class="single_service">
+      <a href="#"><img class='mx-4 brands_b' style="width:310px ; height:300px ;" src="{% static 'website/images/makeup_b.jpg' %}" alt="brands"></a>
+      <div class="overlay"></div>
+      <div class="single_desc">
+        <h1>Maybelline</h1>
+      </div>
+    </div>
+    <div class="single_service">
+      <a href="#"><img class='mx-4 brands_b' style="width:310px ; height:300px ;" src="{% static 'website/images/perfume_b.jpg' %}" alt="brands"></a>
+      <div class="overlay"></div>
+      <div class="single_desc_dior single_desc">
+        <h1>Dior</h1>
+      </div>
+    </div>
+    <div class="single_service">
+      <a href="#"><img class='mx-4 brands_b' style="width:310px ; height:300px ;" src="{% static 'website/images/Samsung_b.jpg' %}" alt="brands"></a>
+      <div class="overlay"></div>
+      <div class="single_desc">
+        <h1>Samsung</h1>
+      </div>
+    </div>
+  </div>
+</section>
+</section>
+<section class='section_seperator'>
+  <hr class="horizen_line">
+  <div class="brand"><p class="brand_text">dj kala</p></div>
+  <hr class="horizen_line">
+</section>
+<section class="section_products">
+  <div class="row product my-2">
+    {% for product in products %}
+    <div class="card card-deck my-3 mx-3" style="width: 20rem;">
+      <img class="card-img-top" src="{{ product.image.url }}" alt="product">
+      <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text">{{ product.review }}</p>
+        <a href="{% url 'detail-view' product.id %}" class="btn btn-outline-danger">Visit</a>
+        {% if product.product_exists %}
+        <button class='btn btn-outline-success add-btn update-cart' data-product='{{ product.id }}' data-action='add'>Add To Cart</button>
+          <span class="ml-4 text-info"><b>{{ product.price }}$</b></span>
+        {% else %}
+          <a href="{% url 'contact' %}" class='btn btn-outline-danger'>Contact Us</a>
+          <span class="ml-4" style='color:red;'>Not Exists</span>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock content %}

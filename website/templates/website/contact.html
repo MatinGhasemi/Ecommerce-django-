@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Contact Us{% endblock title %}
+{% block content %}
+{% for message in messages %}
+    <div class='alert alert-danger my-3 mx-4'>{{ message }}</div>
+{% endfor %}
+<form method="post">
+    {% csrf_token %}
+    <div class="mx-5 my-5 row">
+        <img style='width:400;height:400px;' src="{% static 'website/images/contactus.jpg' %}">
+        <div style='text-align:center;'>
+            <div><h1>Contact Us</h1></div>
+            {% for f in form %}
+                <div>{{ f.label }} : {{ f }}</div>
+            {% endfor %}
+        </div>
+        <input class='w-25 btn btn-outline-success' type="submit" value="Send">
+    </div>
+</form>
+{% endblock content %}

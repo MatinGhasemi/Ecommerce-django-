@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Product
+{% endblock title %}
+{% block content %}
+<div class="product_detail">
+    <img class="img_detail_size" src="{{ product.image.url }}" alt="product">
+    <div class='product_detail_place product_name'>Name : {{ product.name }}</div>
+    <div class='product_detail_place product_category'>Category : {{ product.category }}</div>
+    <div class='product_detail_place product_review'>Review: {{ product.review }}</div>
+    <div class='product_detail_place product_performance'>Performance : {{ product.performance }}</div>
+</div>
+<hr class="horizen_line">
+<div class="row">
+    {% if product.product_exists %}
+        <a href="" class="mx-5 my-4 btn btn-outline-success update-cart" data-product='{{ product.id }}' data-action='add'>Add To Cart</a><span class='text-info'><b>{{ product.price }}$</b></span>
+        <img class='true_false_img' src="{% static 'website/images/True.png' %}" alt="Exist">
+    {% else %}
+        <a href="{% url 'contact' %}" class='mx-5 my-4 btn btn-outline-danger'>Contact Us</a>
+        <img class='true_false_img' src="{% static 'website/images/False.png' %}" alt="Not Exist">
+        <div class="false_text">This Product Dose'n Exist Anymore Contact Us </div>
+    {% endif %}
+</div>
+{% endblock content %}
+
+
+

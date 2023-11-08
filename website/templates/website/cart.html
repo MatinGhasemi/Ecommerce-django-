@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Cart{% endblock title %}
+{% block content %}
+{% for message in messages %}
+<div class='alert alert-danger my-3 mx-4'>{{ message }}</div>
+{% endfor %}
+
+<section class="cart_section my-2 mx-5">
+    <a href="{% url 'home' %}" class='btn btn-outline-secondary cart_btn'>Continue Shopping</a>
+    <hr class="my-2 horizen_line">
+    <div class='row'>
+        <div class='ml-5 pl-5'>Items : {{ order.get_cart_total }}</div>
+        <div class='ml-5 pl-5'>Total : {{ order.get_cart_items }}</div>
+        {% if user.is_authenticated %}
+            <form method="post">
+                {% csrf_token %}
+                <input class='mb-2 btn btn-outline-success cart_pay_btn' type="submit" value="Payments">
+            </form>
+        {% else %}
+            <a href="{% url 'login-pay' %}" class='mb-2 btn btn-outline-danger cart_pay_btn'>Login And Pay</a>
+        {% endif %}
+    </div>
+</section>
+{% comment %} <section class="cart_section my-2 mx-5">
+    <div class="row">
+        <div class='offset-3'><b>name</b></div>
+        <div class='offset-2'><b>price</b></div>
+        <div class='offset-2'><b>quantity</b></div>
+        <div class='offset-2'><b>total</b></div>
+    </div>
+</section> {% endcomment %}
+{% for item in items %}
+<section class="cart_section my-2 mx-5">
+    <div class="row">
+        <a href="{% url 'detail-view' item.product.id %}"><img class='my-1 cart_img_size' src="{{ item.product.imageURL }}" alt="product"></a>
+        <div class='offset-2'>
+            <div class=""><b>Name :</b>{{ item.product.name }}</div>
+            <div class=""><b>Price :</b>{{ item.product.price }}$</div>
+            <div class=""><b>quantity :</b>{{ item.quantity }}<img data-product="{{ item.product.id }}" data-action='add' class='ml-2 arrow_image update-cart' src="{% static 'website/images/arrow-up.png' %}" alt="up"><img data-product='{{ item.product.id }}' data-action='remove' class='arrow_image update-cart' src="{% static 'website/images/arrow-down.png' %}" alt="down"></div>
+        </div>
+        <div class='offset-1'>Total :{{ item.get_total }}$</div>
+    </div>
+</section>
+{% endfor %}
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}UserPage{% endblock title %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row py-3 px-4">
+        
+        <div class="border border-dark rounded col-6">
+            <div><h2><b><i>Personal Identity</i></b></h2></div>
+            <div><h5><i>First Name : </i>{{ user.user.first_name }}</h5></div>
+            <div><h5><i>Last Name : </i>{{ user.user.last_name }}</h5></div>
+            <div><h5><i>Username : </i>{{ user.user.username }}</h5></div>
+            <div><h5><i>Email : </i>{{ user.user.email }}</h5></div> 
+            <div><h5><i>Telephone : </i>{{ user.user.telephone }}</h5></div>
+            <a class='btn btn-outline-primary' href="{% url 'update-user' %}">Change</a>
+        </div>    
+        <div class="border border-dark rounded col-6">
+            <div><h2><i><b>User Address</b></i></h2></div>
+            <div class='max_adddress'><h5><i>Address :</i>{{ user.address }}</h5></div>
+            <div><h5><i>City : </i>{{ user.city }}</h5></div>
+            <div><h5><i>Post Address : </i>{{ user.post_address }}</h5></div>
+            <br>
+            <br>
+            <a class='btn btn-outline-primary' href="{% url 'update-address' %}">Change</a>
+        </div>
+    </div>
+</div>
+<div>
+    {% for order in orders %}
+        <div class="payments_place">
+            <div class='row payments_img_place'>
+                {% for o in order.orderitem_set.all %}
+                <img class='payments_products' src="{{ o.product.image.url }}" alt="products">
+                {% endfor %}
+            </div>
+            <div class='mx-2'><b>Total Payment : {{ order.get_cart_total }}</b></div>
+            <div class='mx-2'><b>Total Item : {{ order.get_cart_items }}</b></div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock content %}

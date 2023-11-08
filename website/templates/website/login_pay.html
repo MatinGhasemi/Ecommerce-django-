@@ -1,0 +1,51 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Login And Pay</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'website/css/style.css' %}">
+  </head>
+  <body>
+    <form method="post">
+        {% csrf_token %}
+        <div style='text-align:center;'>
+          {% for Rform in registerform %}
+            <div class='my-1'>{{ Rform.label }} : {{ Rform }}</div>
+          {% endfor %}
+          {% for Aform in addressfrom %}
+            <div class='my-1'>{{ Aform.label }} : {{ Aform }}</div>
+          {% endfor %}
+          <input class='btn btn-outline-danger' type="submit" value="Payments">
+        </div>
+    </form>
+    <br>
+    <hr class="horizen_line">
+    <br>
+    <div class='row'>
+      <div class='ml-5 pl-5'><b>Items :</b>{{ order.get_cart_total }}</div>
+      <div class='ml-5 pl-5'><b>Total :</b>{{ order.get_cart_items }}</div>
+    </div>
+
+    {% for item in items %}
+    <section class="cart_section my-2 mx-5">
+      <div class="row">
+          <img class='my-1 cart_img_size' src="{{ item.product.imageURL }}" alt="product">
+          <div class='offset-2'>
+              <div class=""><b>Name :</b>{{ item.product.name }}</div>
+              <div class=""><b>Price :</b>{{ item.product.price }}$</div>
+          </div>
+          <div class='offset-1'><b>Total :</b>{{ item.get_total }}$</div>
+      </div>
+    </section>
+    {% endfor %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
