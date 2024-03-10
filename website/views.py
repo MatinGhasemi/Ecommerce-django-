@@ -17,6 +17,7 @@ class Register(View):
         form = forms.RegisterUserForm()
         return render(request,'website/register.html',{'form':form})
     def post(self,request):
+        print(request.POST)
         form = forms.RegisterUserForm(request.POST)
         if form.is_valid():
             form.save()
